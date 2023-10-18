@@ -4,7 +4,7 @@ const app = express();
 const logger = require("../middleware/logger.js");
 const authRouter = require("../router/auth.js");
 const notFound = require("../middleware/notFound");
-const customErrorHandler = require("../middleware/customErrorHandler");
+const customErrorHandler = require("../errors/customErrorHandler");
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
