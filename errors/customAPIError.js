@@ -20,11 +20,11 @@ class badRequestError extends customAPIError{
     }
 }
 
-class notAuthorizedError extends customAPIError{
+class unauthorizedError extends customAPIError{
     constructor(message){
         super(message);
         this.statusCode = StatusCodes.UNAUTHORIZED
     }
 }
 
-module.exports = {customAPIError, notFoundError, badRequestError, notAuthorizedError};
+module.exports = {customAPIError, notFoundError, badRequestError, unauthorizedError};
