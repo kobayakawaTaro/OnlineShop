@@ -19,7 +19,6 @@ app.use(logger)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", auth, userRouter)
 app.use("/api/v1/products",auth, productRouter)
-//app.use("/api/v1/payments",auth, paymentRouter)
 
 app.use(notFound)
 app.use(customErrorHandler)
