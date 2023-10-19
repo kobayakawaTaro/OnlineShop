@@ -5,6 +5,9 @@ require("express-async-errors");
 
 const register = async (req,res,next)=>{
     let {name,email,password} = req.body;
+    if(password.length<6)
+        throw new badRequestError('password must be at least 6 characters long')
+
     const newUser = await userModel.create({name,email,password});
     const token = newUser.createToken();
     res.status(StatusCodes.OK).json({user:newUser._id, token});
@@ -17,7 +20,7 @@ const login = async (req,res,next)=>{
     if(!loggedUser)
         throw new unauthorizedError("User not registered");
 
-    const isMatch = loggedUser.checkPass(password);
+    const isMatch = await loggedUser.checkPass(password);
     if(!isMatch)
         throw new unauthorizedError("User not registered or incorrect passwords");
 

@@ -1,13 +1,13 @@
-const getProduct = (req,res,next)=>{
+const getProduct = async (req,res,next)=>{
     res.status(200).json({"msg":"getProduct"});
 }
-const postProduct = (req,res,next)=>{
+const postProduct = async (req,res,next)=>{
     res.status(200).json({"msg":"postProduct"});
 }
-const patchProduct = (req,res,next)=>{
+const patchProduct = async (req,res,next)=>{
     res.status(200).json({"msg":`${req.params.id}`});
 }
-const deleteProduct = (req,res,next)=>{
+const deleteProduct = async (req,res,next)=>{
     res.status(200).json({"msg":`${req.params.id}`});
 }
 

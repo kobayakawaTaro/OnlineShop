@@ -1,10 +1,22 @@
+require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const errors = require('../errors/customAPIError')
+
 const auth = (req,res,next)=>{
-    console.log("auth middleware running");
-    const token = req.headers.authorization;
-    const userData = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(userData);
-    res.user = userData;
-    next();
+    const authHeader = req.headers.authorization
+
+    if(!authHeader || !authHeader.startsWith('Bearer ')){
+        throw new errors.unauthorizedError('token is not provided')
+    }
+
+    const token = authHeader.split(' ')[1]
+    try{
+        const userData = jwt.verify(token, process.env.JWT_SECRET)
+        req.user = userData
+        next()
+    }catch(e){
+        throw new errors.unauthorizedError('invalid token or not authorized')
+    }
 }
 
 module.exports = auth;

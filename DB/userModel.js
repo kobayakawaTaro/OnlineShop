@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: [true,'please provide password']
+        required: [true,'please provide password'],
     },
     address:{
         type: String,
@@ -35,24 +35,27 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default:0
     }
-});
+})
 
-userSchema.pre("save", async function(){
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password,salt);
-});
-
-userSchema.methods.createToken = function(){
-    const token = jwt.sign({id:this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:"1d"});
-    return token;
-};
-
-userSchema.methods.checkPass = async function(pass){
-    const match = await bcrypt.compare(this.password,pass);
-    return match;
+const hashPass = ()=>{
+    
 }
 
-const userModel = mongoose.model("user", userSchema);
-userModel.createIndexes();
+userSchema.pre("save", async function(){
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password,salt)
+})
 
-module.exports = userModel;
+userSchema.methods.createToken = function(){
+    return jwt.sign({id:this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:"1d"})
+}
+
+userSchema.methods.checkPass = async function(pass){
+    const match = await bcrypt.compare(pass,this.password)
+    return match
+}
+
+const userModel = mongoose.model("user", userSchema)
+userModel.createIndexes()
+
+module.exports = userModel
