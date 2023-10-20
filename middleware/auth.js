@@ -15,7 +15,8 @@ const auth = (req,res,next)=>{
         req.user = userData
         next()
     }catch(e){
-        throw new errors.unauthorizedError('invalid token or not authorized')
+        console.log(token)
+        throw new errors.unauthorizedError(e.message)//('invalid token or not authorized')
     }
 }
 

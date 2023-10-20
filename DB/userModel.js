@@ -4,6 +4,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
+    role:{
+        type:String,
+        Enum:{
+            values:['User','Admin'],
+            message:v=>`${v} is not a valid role`
+        },
+        default:'User'
+    },
     name:{
         type: String,
         required: [true,'please provide name'],
@@ -47,7 +55,7 @@ userSchema.pre("save", async function(){
 })
 
 userSchema.methods.createToken = function(){
-    return jwt.sign({id:this._id,name:this.name},process.env.JWT_SECRET,{expiresIn:"1d"})
+    return jwt.sign({id:this._id,name:this.name, role:this.role},process.env.JWT_SECRET,{expiresIn:"1d"})
 }
 
 userSchema.methods.checkPass = async function(pass){

@@ -4,11 +4,11 @@ const {notFoundError, badRequestError, unauthorizedError} = require("../errors/c
 require("express-async-errors");
 
 const register = async (req,res,next)=>{
-    let {name,email,password} = req.body;
+    let {name,email,password,role} = req.body;
     if(password.length<6)
         throw new badRequestError('password must be at least 6 characters long')
 
-    const newUser = await userModel.create({name,email,password});
+    const newUser = await userModel.create({name,email,password,role});
     const token = newUser.createToken();
     res.status(StatusCodes.OK).json({user:newUser._id, token});
 }

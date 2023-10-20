@@ -6,6 +6,7 @@ router.route("/")
     .get(getProduct)
     .post(postProduct)
 
+router.route("/:id")
     .get(getProduct)
     .patch(patchProduct)
     .delete(deleteProduct)
