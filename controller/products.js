@@ -3,7 +3,7 @@ const errors = require('../errors/customAPIError')
 const {StatusCodes} = require('http-status-codes')
 
 const getProduct = async (req,res,next)=>{
-    const {id,search,category,condition,filter,variation}=req.query
+    const {id,search,category,condition,filter}=req.query
     const query = {}
     let productData
 
@@ -42,8 +42,9 @@ const getProduct = async (req,res,next)=>{
 
     res.status(200).json({'nbhit':productData.length,productData});
 }
+
 const postProduct = async (req,res,next)=>{
-    if(req.user.role!='Admin')
+    if(req.user.role.toLowerCase()=='admin')
         throw new errors.unauthorizedError('Only admins can add products')
 
     const {name,price,category,condition,variation} = req.body
@@ -65,11 +66,24 @@ const postProduct = async (req,res,next)=>{
     res.status(StatusCodes.OK).json(addedProduct)
 }
 const patchProduct = async (req,res,next)=>{
-    //edit price, images, stock, variation
-    res.status(200).json({"msg":`${req.params.id}`})
+    if(req.user.role.toLowerCase()!='admin')
+    throw new errors.unauthorizedError('Only admins can update products')
+    const id = req.params.id
+    const {price,images, stock} = req.body
+    let query = {}
+
+    if(price)
+        query.price = price
+    if(images)
+        query.images = images
+    if(stock)
+        query.stock = stock
+
+    const updatedProduct = await productModel.findByIdAndUpdate(id, query, {new:true, runValidators:true})
+    res.status(200).json(updatedProduct)
 }
 const deleteProduct = async (req,res,next)=>{
-    if(req.user.role!='Admin'){
+    if(req.user.role.toLowerCase()!='admin'){
         throw new errors.unauthorizedError('Only admins can delete products')
     }
     const deletedProduct = await productModel.findByIdAndDelete(req.params.id)

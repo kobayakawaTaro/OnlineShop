@@ -35,7 +35,7 @@ const productSchema = new mongoose.Schema({
         default:0,
         min:0
     },
-    'variation':[{
+    'variation':{
         'name':{
             'type':String,
             'required':true
@@ -50,7 +50,7 @@ const productSchema = new mongoose.Schema({
                 'required':true
             }
         }]
-    }],
+    },
     'rating':{
         type:Number,
         min:0,
