@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         type: String,
     },
     cartID:{
-        type:String
+        type:mongoose.Schema.Types.ObjectId
     },
     order:[{
         type:String

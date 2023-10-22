@@ -1,4 +1,5 @@
 const userModel = require('../DB/userModel')
+const cartModel = require('../DB/cartModel')
 const {StatusCodes} = require('http-status-codes')
 const bcrypt = require('bcrypt')
 const { badRequestError } = require('../errors/customAPIError')
@@ -33,8 +34,9 @@ const patchUser = async (req,res,next)=>{
 
 const deleteUser = async (req,res,next)=>{
     const {id} = req.user
-    const deletedUser = await userModel.findByIdAndDelete(id) 
-    res.status(200).json({deletedUser})
+    const deletedUser = await userModel.findByIdAndDelete(id)
+    const deletedCart = await cartModel.findOneAndDelete({'user':deletedUser._id})
+    res.status(200).json({deletedUser, deletedCart})
 }
 
 module.exports = {getUser,patchUser,deleteUser}
