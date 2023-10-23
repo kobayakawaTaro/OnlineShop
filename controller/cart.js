@@ -1,4 +1,5 @@
 const cartModel = require('../DB/cartModel')
+const productModel = require('../DB/productModel')
 const {StatusCodes} = require('http-status-codes')
 
 const getCart = async (req,res,next)=>{
@@ -8,18 +9,21 @@ const getCart = async (req,res,next)=>{
 
 const patchCart = async (req,res,next)=>{
     let updatedCart = await cartModel.findOne({'user':req.user.id})
+
     let {push,pull} = req.body
 
     if(push){
-        push.forEach((obj)=>{
-            if(!updatedCart.products.some((e)=>e['products']==obj.products)){
-                updatedCart.products.push(obj)
+        for(const obj of push){
+            if(!updatedCart.products.some((e)=>e['id']==obj.id)){
+                const product = await productModel.findById(obj.id)
+                if(product)
+                    updatedCart.products.push(obj)
             }
             else{
-                const idx = updatedCart.products.findIndex((e)=>e.products==obj.products)
+                const idx = updatedCart.products.findIndex((e)=>e.id==obj.id)
                 updatedCart.products[idx].quantity+=obj.quantity
             }
-        })
+        }
     }
     
     if(pull){

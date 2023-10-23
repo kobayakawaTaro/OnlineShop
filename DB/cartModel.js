@@ -3,7 +3,7 @@ const cartSchema = new mongoose.Schema({
     'user':{'type':mongoose.Schema.Types.ObjectId, 'required':true},
     'products':[{
         'id':{
-            'type':String,//mongoose.Schema.Types.ObjectId, 
+            'type':mongoose.Schema.Types.ObjectId, 
             'required':true
         },
         'quantity':{
@@ -14,5 +14,9 @@ const cartSchema = new mongoose.Schema({
         }
     }]
 })
+
+cartSchema.methods.emptyCart = function(){
+    this.products = []
+}
 
 module.exports = mongoose.model('cart',cartSchema)
