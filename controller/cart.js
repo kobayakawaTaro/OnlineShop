@@ -1,9 +1,12 @@
 const cartModel = require('../DB/cartModel')
+const errors = require('../errors/customAPIError')
 const productModel = require('../DB/productModel')
 const {StatusCodes} = require('http-status-codes')
 
 const getCart = async (req,res,next)=>{
-    const userCart = await cartModel.find({'user':req.user.id})
+    const userCart = await cartModel.find({ 'user': req.user.id })
+    if (!userCart)
+        throw new errors.unauthorizedError('not logged in')
     res.status(StatusCodes.OK).json(userCart)
 }
 
