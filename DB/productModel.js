@@ -38,16 +38,13 @@ const productSchema = new mongoose.Schema({
     'variation':{
         'name':{
             'type':String,
-            'required':true
         },
         'values':[{
             'name':{
                 'type':String,
-                'required':true
             },
             'stock':{
                 'type':Number,
-                'required':true
             }
         }]
     },

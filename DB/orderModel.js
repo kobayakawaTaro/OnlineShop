@@ -15,13 +15,23 @@ const orderSchema = new mongoose.Schema({
       },
     },
   ],
+  invoice:{
+    amount:{
+      type:Number,
+      min:0
+    },
+    paid:{
+      type:Boolean,
+      default:false
+    }
+  },
   statusHistory: {
     type: [
       {
         status: {
           type: String,
           enum: {
-            values: ["to pay", "to ship", "shipped", "to review"],
+            values: ['to pay', 'to ship', 'shipped', 'to review', 'reviewed'],
             message: (v) => `${v} is not a valid status`,
           },
         },
@@ -44,6 +54,6 @@ const orderSchema = new mongoose.Schema({
       }
     }],
   }
-});
+})
 
 module.exports = mongoose.model("orders", orderSchema);

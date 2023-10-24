@@ -1,5 +1,6 @@
 const orderModel = require('../DB/orderModel')
 const productModel = require('../DB/productModel')
+const cartModel = require('../DB/cartModel')
 
 const { StatusCodes } = require('http-status-codes')
 const errors = require('../errors/customAPIError')
@@ -25,22 +26,31 @@ const getOrder = async (req, res, next) => {
 }
 
 const postOrder = async (req, res, next) => {
+    if(req.user.role.toLowerCase()!='user')
+        throw new errors.unauthorizedError('only users can post orders')
+
+    const cart = await cartModel.findOne({user:req.user.id})
+    if(!cart){
+        throw new errors.notFoundError('user not found')
+    }
+
     const {products}= req.body
-    let newOrder
+    let invoice = 0
     let prodTemp = []
     for(obj of products){
         const searchProduct = await productModel.findById(obj.id)
-        if(searchProduct)
+        if(searchProduct){
+            invoice +=searchProduct.price*obj.quantity
+            cart.products = cart.products.filter((obj)=>obj.id!=searchProduct.id)
             prodTemp.push(obj)
+        }
     }
-    console.log(prodTemp)
     
-    if(req.user.role.toLowerCase()!='user')
-        throw new errors.unauthorizedError('only users can post orders')
-    
-    newOrder = await orderModel.create({user:req.user.id,products:prodTemp, status:['to pay']})
+    const newOrder = await orderModel.create({user:req.user.id,products:prodTemp, invoice:{amount:invoice}, status:['to pay']})
+    await cart.save()
+
     res.status(StatusCodes.CREATED).json(newOrder)
-};
+}
 
 const patchOrder = async (req, res, next) => {
     const {status} = req.body

@@ -11,7 +11,7 @@ const getUser = async (req,res,next)=>{
 }
 
 const patchUser = async (req,res,next)=>{
-    const {id} = req.user
+    const id = req.user.id
     const update = {}
     const options = ['name','password','address']
     for (propName in req.body){

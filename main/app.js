@@ -13,7 +13,8 @@ const authRouter = require("../router/auth.js")
 const productRouter = require("../router/products.js")
 const userRouter = require("../router/users.js")
 const cartRouter = require("../router/cart.js")
-const orderRouter = require("../router/order.js");
+const orderRouter = require("../router/order.js")
+const paymentRouter = require("../router/payment.js")
 
 app.use(logger)
 app.use(express.static("../public"));
@@ -21,7 +22,9 @@ app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", auth, userRouter)
 app.use("/api/v1/products",auth, productRouter)
 app.use("/api/v1/cart",auth, cartRouter)
-app.use("/api/v1/orders", auth, orderRouter);
+app.use("/api/v1/orders", auth, orderRouter)
+app.use("/api/v1/payment", auth, paymentRouter)
+
 
 app.use(notFound)
 app.use(customErrorHandler)

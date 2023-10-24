@@ -13,6 +13,13 @@ class notFoundError extends customAPIError{
     }
 }
 
+class paymentError extends customAPIError{
+    constructor(message){
+        super(message);
+        this.statusCode = StatusCodes.PAYMENT_REQUIRED
+    }
+}
+
 class badRequestError extends customAPIError{
     constructor(message){
         super(message);
@@ -27,4 +34,4 @@ class unauthorizedError extends customAPIError{
     }
 }
 
-module.exports = {customAPIError, notFoundError, badRequestError, unauthorizedError};
+module.exports = {customAPIError, notFoundError, badRequestError, unauthorizedError,paymentError};
