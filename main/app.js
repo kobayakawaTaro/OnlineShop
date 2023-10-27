@@ -1,8 +1,16 @@
 const express = require("express")
 const app = express()
+require('express-async-errors')
+require('express-rate-limit')
+const cors = require('cors')
+const xss = require('xss-clean')
+const helmet = require('helmet')
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json())
+app.use(helmet())
+app.use(cors())
+app.use(xss())
+app.use(express.urlencoded({ extended: false }))
 
 const auth = require("../middleware/auth.js")
 const logger = require("../middleware/logger.js")

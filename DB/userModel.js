@@ -56,6 +56,7 @@ userSchema.methods.createToken = function(){
 
 userSchema.methods.checkPass = async function(pass){
     const match = await bcrypt.compare(pass,this.password)
+    console.log(match)
     return match
 }
 
