@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+.arrow{
+    fill: #ee4d2d;
+    width:1.5625rem;
+}
+
+.login-nav{
+    min-height:2.75rem;
+}
+
+.login-page{
+    min-height:calc(100vh - 2.75rem);
+}
+
+.login-logo{
+    fill: #ee4d2d;
+    width: 49px;
+}
+
+.form-control{
+    border:none !important; 
+}
