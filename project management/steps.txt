@@ -1,0 +1,29 @@
+    DONE make log file
+    DONE init project
+    DONE config gitignore
+    DONE configure package.json
+    DONE install dependencies:
+        - http-status-codes
+        - express
+        - dotenv
+        - mongoose
+        - express-async-errors
+        - nodemon D
+        - jsonwebtoken
+        - bcrypt
+        - security: helmet, cors, xss-clean, express-rate-limit
+    DONE design resouces & features
+    DONE create index.js
+    DONE create app.js
+    DONE create router
+    DONE create controller
+    DONE create postman route
+    DONE create error handler
+    DONE connect DB
+    DONE create user schema
+    authorization
+    read, delete, update user
+    create product schema
+    create order schema
+    populate data
+    finalize CRUD operations

@@ -1,0 +1,9 @@
+challenges: JWT, mongoose enum, mongodb syntaxes, mongodb query
+
+try 1 controller-service route
+apply all security modules
+
+
+fix:
+- user patch
+- order status & tracking

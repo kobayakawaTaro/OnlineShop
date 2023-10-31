@@ -1,0 +1,48 @@
+resources:
+  1. user:
+    - name
+    - email
+    - password
+    - cart
+    - address
+    - orders
+    - balance
+  2. product
+    - name
+    - price
+    - images
+    - category
+    - condition
+    - stock
+    - variation
+    - rating
+    - sold
+  3. order
+    - productID
+    - userID
+    - status
+  4. reviews
+    - dateCreated
+    - rating
+    - productID
+    - userID
+    - images
+
+
+features:
+  - register
+  - login
+  - logout
+  - profile
+  - topup/withdraw
+  - orders
+    - waiting for payment
+    - payment
+    - order tracking
+    - order complete
+    - order rating
+    - order refund
+  - discover
+  - search
+  - add to cart
+  - checkout
