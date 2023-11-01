@@ -1,7 +1,10 @@
 *{
-    box-sizing: border-box;
-    margin:0;
-    padding:0;
+    box-sizing: border-box !important;
+    margin:0 !important;
+    padding:0 !important;
+}
+.nav-row{
+    min-height:100%;
 }
 
 .arrow{
@@ -24,4 +27,11 @@
 
 .form-control{
     border:none !important; 
+}
+
+.login-button{
+    margin-top:14px;
+    border-radius: 0 !important;
+    background-color: #ee4d2d;
+    height: 2.5rem;
 }
