@@ -25,7 +25,7 @@ const orderRouter = require("../router/order.js")
 const paymentRouter = require("../router/payment.js")
 
 app.use(logger)
-app.use(express.static("../public"));
+app.use(express.static("./public"));
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/users", auth, userRouter)
 app.use("/api/v1/products",auth, productRouter)

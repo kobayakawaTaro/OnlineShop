@@ -23,6 +23,7 @@ const register = async (req,res,next)=>{
 
 const login = async (req,res,next)=>{
     const {email,password}=req.body;
+    console.log(req.body);
     const loggedUser = await userModel.findOne({email})
     
     if(!loggedUser)
